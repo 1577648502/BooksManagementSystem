@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: BooksManagementSystem
+  datasource:
+    url: jdbc:mysql://localhost:3306/BooksManagementSystemDB
+    username: root
+    password: 12345678
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect # ?????
+    hibernate:
+      ddl-auto: update # ????
+    show-sql: true  # ??sql
+
+# ??
+logging:
+  level:
+    com.lfg.com.lfg.booksmanagementsystem.service: debug
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false # ????
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # ????
+  mapper-locations: classpath:/mapper/*.xml
+  global-config:
+    db-config:
+      #??id????
+      id-type: ASSIGN_ID
+      logic-delete-field: isDelete # ???????
+      logic-not-delete-value: 0 # ????
+      logic-delete-value: 1 # ???
