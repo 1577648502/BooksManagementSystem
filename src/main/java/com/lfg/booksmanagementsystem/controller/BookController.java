@@ -1,7 +1,6 @@
 package com.lfg.booksmanagementsystem.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lfg.booksmanagementsystem.exception.BusinessException;
 import com.lfg.booksmanagementsystem.model.Books;
 import com.lfg.booksmanagementsystem.model.dto.BookAddRequest;
@@ -10,12 +9,16 @@ import com.lfg.booksmanagementsystem.service.BookService;
 import com.lfg.booksmanagementsystem.utils.BaseResponse;
 import com.lfg.booksmanagementsystem.utils.ErrorCode;
 import com.lfg.booksmanagementsystem.utils.ResultUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+@Tag(name = "")
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -29,6 +32,7 @@ public class BookController {
      * @param bookAddRequest
      * @return
      */
+    @Operation(summary = "添加书籍", description = "添加书籍")
     @PostMapping
     public BaseResponse<String> addBook(@RequestBody BookAddRequest bookAddRequest) {
         if (bookAddRequest == null) {
@@ -50,6 +54,8 @@ public class BookController {
      * @param id
      * @return
      */
+    @Parameter(name = "id", description = "", in = ParameterIn.PATH, required = true)
+    @Operation(summary = "删除书籍", description = "删除书籍")
     @DeleteMapping("/{id}")
     public BaseResponse<Long> deleteBook(@PathVariable Long id) {
         if (id == null) {
@@ -66,6 +72,8 @@ public class BookController {
      * @param bookUpdateRequest
      * @return
      */
+    @Parameter(name = "id", description = "", in = ParameterIn.PATH, required = true)
+    @Operation(summary = "更新书籍", description = "更新书籍")
     @PutMapping("/{id}")
     public BaseResponse<Boolean> updateBook(@PathVariable String id, @RequestBody BookUpdateRequest bookUpdateRequest) {
         if (id == null || bookUpdateRequest == null) {
@@ -88,6 +96,13 @@ public class BookController {
      * @param id, title, pageNo, pageSize
      * @return
      */
+    @Parameters({
+            @Parameter(name = "id", description = "", in = ParameterIn.QUERY),
+            @Parameter(name = "title", description = "", in = ParameterIn.QUERY),
+            @Parameter(name = "pageNo", description = "", in = ParameterIn.QUERY),
+            @Parameter(name = "pageSize", description = "", in = ParameterIn.QUERY)
+    })
+    @Operation(summary = "分页搜索书籍", description = "分页搜索书籍")
     @GetMapping
     public BaseResponse<IPage<Books>> searchBooks(@RequestParam(required = false) Integer id, @RequestParam(required = false) String title, @RequestParam(required = false) Integer pageNo, @RequestParam(required = false) Integer pageSize) {
 
