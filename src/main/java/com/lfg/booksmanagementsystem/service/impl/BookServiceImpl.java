@@ -40,14 +40,14 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Books> implements B
     }
 
     @Override
-    public IPage<Books> getBooks(Integer id, String title, Integer pageNo, Integer pageSize) {
-        if (pageNo == null || pageNo <= 0) {
-            pageNo = 1;
+    public IPage<Books> getBooks(Long id, String title, Integer page, Integer size) {
+        if (page == null || page <= 0) {
+            page = 1;
         }
-        if (pageSize == null || pageSize <= 0) {
-            pageSize = 10;
+        if (size == null || size <= 0) {
+            size = 10;
         }
-        Page<Books> page = new Page<>(pageNo, pageSize);
+        Page<Books> pages = new Page<>(page, size);
         LambdaQueryWrapper<Books> queryWrapper = new LambdaQueryWrapper<>();
 
         if (id != null) {
@@ -57,6 +57,11 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Books> implements B
             queryWrapper.like(Books::getTitle, title); // 根据书名模糊查询
         }
 
-        return bookMapper.selectPage(page, queryWrapper);
+        return bookMapper.selectPage(pages, queryWrapper);
+    }
+
+    @Override
+    public Books getBookById(Long id) {
+        return bookMapper.selectById(id);
     }
 }

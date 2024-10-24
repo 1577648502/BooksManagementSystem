@@ -102,14 +102,29 @@ public class BookController {
     @Parameters({
             @Parameter(name = "id", description = "", in = ParameterIn.QUERY),
             @Parameter(name = "title", description = "", in = ParameterIn.QUERY),
-            @Parameter(name = "pageNo", description = "", in = ParameterIn.QUERY),
-            @Parameter(name = "pageSize", description = "", in = ParameterIn.QUERY)
+            @Parameter(name = "page", description = "", in = ParameterIn.QUERY),
+            @Parameter(name = "size", description = "", in = ParameterIn.QUERY)
     })
     @Operation(summary = "分页搜索书籍", description = "分页搜索书籍")
     @GetMapping
-    public BaseResponse<IPage<Books>> searchBooks(@RequestParam(required = false) Integer id, @RequestParam(required = false) String title, @RequestParam(required = false) Integer pageNo, @RequestParam(required = false) Integer pageSize) {
+    public BaseResponse<IPage<Books>> searchBooks(@RequestParam(required = false) Long id, @RequestParam(required = false) String title, @RequestParam(required = false) Integer page, @RequestParam(required = false) Integer size) {
 
-        return ResultUtils.success(bookService.getBooks(id, title, pageNo, pageSize));
+        return ResultUtils.success(bookService.getBooks(id, title, page, size));
     }
 
+    /**
+     * 根据id获取书籍
+     */
+
+    @GetMapping("/{id}")
+    public BaseResponse<Books> getBookById(@PathVariable Long id) {
+        if (id == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "id不能为空");
+        }
+        Books book = bookService.getBookById(id);
+        if (book == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "书籍不存在");
+        }
+        return ResultUtils.success(bookService.getBookById(id));
+    }
 }

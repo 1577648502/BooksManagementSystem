@@ -20,5 +20,7 @@ public interface BookService extends IService<Books> {
 
     boolean updateBook(Books books);
 
-    IPage<Books> getBooks(Integer id, String title, Integer pageNo, Integer pageSize);
+    IPage<Books> getBooks(Long id, String title, Integer page, Integer size);
+
+    Books getBookById(Long id);
 }
