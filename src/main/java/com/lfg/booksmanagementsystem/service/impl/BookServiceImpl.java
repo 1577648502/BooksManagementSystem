@@ -27,6 +27,10 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Books> implements B
 
     @Override
     public boolean deleteBook(Long id) {
+        Books byId = bookMapper.selectById(id); // 根据ID查询书籍
+        if (byId == null) {
+            return false; // 如果书籍不存在，返回 false
+        }
         return bookMapper.deleteById(id) > 0; // 使用 deleteById 方法删除书籍
     }
 

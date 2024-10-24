@@ -76,29 +76,6 @@ http://localhost:8080/swagger-ui/index.html
 # 测试
 
 可以使用swagger-ui测试 API：
-
-### 添加图书:
-
-![image-20241024154029255](/Users/liufaguang/Library/Application Support/typora-user-images/image-20241024154029255.png)
-
-### 删除图书:
-
-![image-20241024154059180](/Users/liufaguang/Library/Application Support/typora-user-images/image-20241024154059180.png)
-
-### 更新图书信息
-
-![image-20241024154159578](/Users/liufaguang/Library/Application Support/typora-user-images/image-20241024154159578.png)
-
-### 查询图书信息（支持按ID查询、按书名查询和分页查询）
-
-### id查询
-
-![image-20241024154312785](/Users/liufaguang/Library/Application Support/typora-user-images/image-20241024154312785.png)
-
-### 书名查询
-
-![image-20241024154337860](/Users/liufaguang/Library/Application Support/typora-user-images/image-20241024154337860.png)
-
-### 分页查询
-
-![image-20241024154402458](/Users/liufaguang/Library/Application Support/typora-user-images/image-20241024154402458.png)
+```
+http://localhost:8080/swagger-ui/index.html
+```

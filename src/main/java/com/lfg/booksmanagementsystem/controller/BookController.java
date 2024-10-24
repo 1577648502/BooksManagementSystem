@@ -36,16 +36,16 @@ public class BookController {
     @PostMapping
     public BaseResponse<String> addBook(@RequestBody BookAddRequest bookAddRequest) {
         if (bookAddRequest == null) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数错误");
         }
         Books books = new Books();
         BeanUtils.copyProperties(bookAddRequest, books);//将bookAddRequest中的属性复制到books中
 
         boolean result = bookService.addBook(books);
         if (!result) {
-            throw new BusinessException(ErrorCode.OPERATION_ERROR);
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "添加失败");
         }
-        return ResultUtils.success(books.getId());
+        return ResultUtils.success(books.getTitle() + "添加成功");
     }
 
     /**
@@ -57,12 +57,15 @@ public class BookController {
     @Parameter(name = "id", description = "", in = ParameterIn.PATH, required = true)
     @Operation(summary = "删除书籍", description = "删除书籍")
     @DeleteMapping("/{id}")
-    public BaseResponse<Long> deleteBook(@PathVariable Long id) {
+    public BaseResponse<String> deleteBook(@PathVariable Long id) {
         if (id == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        bookService.deleteBook(id);
-        return ResultUtils.success(id);
+        boolean book = bookService.deleteBook(id);
+        if (!book) {
+            return ResultUtils.error(ErrorCode.OPERATION_ERROR, "删除失败,用户不存在");
+        }
+        return ResultUtils.success(id + "删除成功");
     }
 
     /**
@@ -75,7 +78,7 @@ public class BookController {
     @Parameter(name = "id", description = "", in = ParameterIn.PATH, required = true)
     @Operation(summary = "更新书籍", description = "更新书籍")
     @PutMapping("/{id}")
-    public BaseResponse<Boolean> updateBook(@PathVariable String id, @RequestBody BookUpdateRequest bookUpdateRequest) {
+    public BaseResponse<String> updateBook(@PathVariable String id, @RequestBody BookUpdateRequest bookUpdateRequest) {
         if (id == null || bookUpdateRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -85,9 +88,9 @@ public class BookController {
 
         boolean result = bookService.updateBook(books);
         if (!result) {
-            throw new BusinessException(ErrorCode.OPERATION_ERROR);
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "更新失败");
         }
-        return ResultUtils.success(result);
+        return ResultUtils.success("更新成功");
     }
 
     /**

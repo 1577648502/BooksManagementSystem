@@ -1,19 +1,3 @@
-#
-## 使用官方Java基础镜像
-#FROM openjdk:17-jdk-slim
-#
-#MAINTAINER lfg
-#
-## 设置工作目录
-#WORKDIR /app
-## 将jar文件复制到容器中
-#COPY build/libs/BooksManagementSystem-0.0.1-SNAPSHOT.jar app.jar
-#
-## 运行应用
-#ENTRYPOINT ["java", "-jar", "/app.jar"]
-#
-#
-#
 
 # 使用官方 Java 17 基础镜像
 FROM openjdk:17-jdk-slim AS builder
