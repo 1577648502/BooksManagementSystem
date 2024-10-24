@@ -1,5 +1,6 @@
 package com.lfg.booksmanagementsystem.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lfg.booksmanagementsystem.exception.BusinessException;
 import com.lfg.booksmanagementsystem.model.Books;
@@ -82,45 +83,15 @@ public class BookController {
     }
 
     /**
-     * 根据id获取书籍
+     * 分页搜索书籍
      *
-     * @param id
-     * @return
-     */
-    @GetMapping("/{id}")
-    public BaseResponse<Books> getBookById(@PathVariable Long id) {
-        if (id == null) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
-        }
-        return ResultUtils.success(bookService.getBookById(id));
-    }
-
-    /**
-     * 根据书名搜索书籍
-     *
-     * @param name
+     * @param id, title, pageNo, pageSize
      * @return
      */
     @GetMapping
-    public BaseResponse<List<Books>> searchBooksByTitle(@RequestParam(required = false) String name) {
-        if (name == null) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
-        }
-        return ResultUtils.success(bookService.searchBooksByTitle(name));
+    public BaseResponse<IPage<Books>> searchBooks(@RequestParam(required = false) Integer id, @RequestParam(required = false) String title, @RequestParam(required = false) Integer pageNo, @RequestParam(required = false) Integer pageSize) {
+
+        return ResultUtils.success(bookService.getBooks(id, title, pageNo, pageSize));
     }
 
-    /**
-     * 分页获取书籍
-     *
-     * @param page
-     * @param size
-     * @return
-     */
-    @GetMapping("/page")
-    public BaseResponse<Page<Books>> getBooksByPage(@RequestParam int page, @RequestParam int size) {
-        if (page < 0 || size < 0) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
-        }
-        return ResultUtils.success(bookService.getBooksByPage(page, size));
-    }
 }

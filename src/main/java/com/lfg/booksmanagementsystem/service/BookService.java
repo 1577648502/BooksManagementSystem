@@ -1,6 +1,8 @@
 package com.lfg.booksmanagementsystem.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lfg.booksmanagementsystem.mapper.BookMapper;
 import com.lfg.booksmanagementsystem.model.Books;
@@ -9,29 +11,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BookService extends ServiceImpl<BookMapper, Books> {
+public interface BookService extends IService<Books> {
 
-    public boolean addBook(Books books) {
-        return this.save(books);
-    }
 
-    public boolean deleteBook(Long id) {
-        return this.removeById(id);
-    }
+    boolean addBook(Books books);
 
-    public boolean updateBook(Books books) {
-        return this.updateById(books);
-    }
+    boolean deleteBook(Long id);
 
-    public Books getBookById(Long id) {
-        return this.getById(id);
-    }
+    boolean updateBook(Books books);
 
-    public List<Books> searchBooksByTitle(String title) {
-        return this.lambdaQuery().like(Books::getTitle, title).list();
-    }
-
-    public Page<Books> getBooksByPage(int page, int size) {
-        return this.page(new Page<>(page, size));
-    }
+    IPage<Books> getBooks(Integer id, String title, Integer pageNo, Integer pageSize);
 }
