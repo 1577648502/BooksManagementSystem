@@ -6,9 +6,6 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * @author lfg
- * @Date: 2023/08/31 07:45:24
- * @Version: 1.0
  * @Description: 通用返回类
  */
 @Data

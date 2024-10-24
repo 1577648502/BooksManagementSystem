@@ -29,9 +29,9 @@ public class Books {
     @Schema(description = "作者")
     private String author;
     /**
-     * 出版社
+     * 出版时间
      */
-    @Schema(description = "出版社")
+    @Schema(description = "出版时间")
     private int year;
     /**
      * 更新时间

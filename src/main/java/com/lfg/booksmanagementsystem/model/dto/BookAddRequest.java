@@ -4,7 +4,16 @@ import lombok.Data;
 
 @Data
 public class BookAddRequest {
+    /**
+     * 书名
+     */
     private String title;
+    /**
+     * 作者
+     */
     private String author;
+    /**
+     * 出版时间
+     */
     private int year;
 }
