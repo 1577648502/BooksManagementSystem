@@ -63,7 +63,7 @@ public class BookController {
         }
         boolean book = bookService.deleteBook(id);
         if (!book) {
-            return ResultUtils.error(ErrorCode.OPERATION_ERROR, "删除失败,用户不存在");
+            return ResultUtils.error(ErrorCode.OPERATION_ERROR, "删除失败,书籍不存在");
         }
         return ResultUtils.success(id + "删除成功");
     }
